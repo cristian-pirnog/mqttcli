@@ -1,0 +1,21 @@
+version: '3'
+services:
+    api:
+      build: .
+      image: cpirnog/mqtt-cli:local
+      environment:
+        MQTT_HOST: vernemq
+        MQTT_PORT: 1883
+        MQTT_USERNAME: user
+        MQTT_PASSWORD: blabla
+      volumes:
+      - ./:/go/src/gihub.com/cristian-pirnog/mqttcli
+      links:
+          - vernemq
+    vernemq:
+      image: erlio/docker-vernemq
+      environment:
+        DOCKER_VERNEMQ_ALLOW_ANONYMOUS: "on"
+      ports:
+       - 1883:1883
+       - 8084:8080
